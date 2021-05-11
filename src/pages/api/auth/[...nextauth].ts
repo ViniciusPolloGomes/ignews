@@ -9,10 +9,10 @@ export default NextAuth({
         Providers.GitHub({
             clientId: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-            scope: 'read:user'
+            scope: 'read:user',
         }),
     ],
-    //  database: process.env.DATABASE_URL,
+    //database: process.env.DATABASE_URL,
     callbacks: {
         async session(session){
             try{
