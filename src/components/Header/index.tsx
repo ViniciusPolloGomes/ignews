@@ -1,4 +1,4 @@
-import { SigInButton } from '../SignInButton';
+import { SignInButton } from '../SignInButton';
 import {useRouter} from 'next/router';
 import { ActiveLink } from '../ActiveLink';
 
@@ -20,7 +20,7 @@ export function Header(){
                         <a>Posts</a>
                     </ActiveLink>
                 </nav>
-                <SigInButton/>
+                <SignInButton/>
             </div>
         </header>
     );

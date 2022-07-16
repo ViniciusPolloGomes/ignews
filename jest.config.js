@@ -4,10 +4,10 @@ module.exports = {
         "<rootDir>/src/tests/setupTests.ts"          
     ],
     moduleNameMapper:{
-        "\\.(scss|css|sass)$ " : "identity-obj-proxy"
+        '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy'
     },
     transform:{                                      //parecido com Loaders no webpack, é necessario transformar os arquivos antes de executar codigo, converter com babel para que jest consiga entender esses arquivos.                                        
-        "^.*\\.(js|jsx|ts|tsx)$" : "<rootDir>/node_modules/babel-jest"
+        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }]
     },
     testEnvironment :'jsdom'
 }
