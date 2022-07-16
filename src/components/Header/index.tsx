@@ -1,7 +1,8 @@
 import { SigInButton } from '../SignInButton';
-import styles from './styles.module.scss';
 import {useRouter} from 'next/router';
 import { ActiveLink } from '../ActiveLink';
+
+import styles from './styles.module.scss';
 
 export function Header(){
     const {asPath} = useRouter();
