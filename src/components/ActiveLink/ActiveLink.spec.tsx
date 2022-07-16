@@ -25,7 +25,7 @@ describe('Activelink component', ()=>{
     })
     
     it('adds active class if the link as currently active', () =>{
-        const{debug} = render(
+        const {debug} = render(
             <ActiveLink href="/" activeClassName="active">
                 <a>Home</a>
             </ActiveLink>
