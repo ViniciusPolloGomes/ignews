@@ -13,9 +13,10 @@ jest.mock('next-auth/client' , ()=>{ // virtualização da função
 describe('SignInButton component', ()=>{ 
     
     it('renders correctly when user is not authenticated', () =>{
-         render(
+         const {debug} = render(
             <SignInButton/>
         )
+        debug()
         expect(screen.getByText('Sign in with Github')).toBeInTheDocument()
  
     })
