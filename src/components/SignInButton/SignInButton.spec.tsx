@@ -22,7 +22,7 @@ describe('SignInButton component', ()=>{
         
         const useSessionMocked = mocked(useSession)
         
-        useSessionMocked.mockReturnValueOnce([
+        useSessionMocked.mockReturnValueOnce(
             {
               data: {
                 user: { 
@@ -32,8 +32,8 @@ describe('SignInButton component', ()=>{
                 expires: "fake-expires",
               },
             } as any,
-            false
-        ]
+            
+        
         );
 
         render(<SignInButton/>)
