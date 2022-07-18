@@ -47,9 +47,9 @@ yarn jest
 
 yarn add identity-obj-proxy -D
 
-yarn add ts-jest -D
-
 yarn add --dev jest typescript 
-yarn add --dev ts-jest @types/jest
+
+yarn add jest-mock -D
+
 ```
 
