@@ -34,3 +34,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### Commands
+```
+yarn create next-app --typescript
+
+yarn add jest -D
+yarn add jest-dom @testing-library/jest-dom @testing-library/dom @testing-library/react babel-jest -D
+yarn add jest-environment-jsdom -D 
+
+yarn jest
+
+yarn add identity-obj-proxy -D
+
+yarn add ts-jest -D
+
+yarn add --dev jest typescript 
+yarn add --dev ts-jest @types/jest
+```
+
