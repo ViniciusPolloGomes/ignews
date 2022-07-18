@@ -19,20 +19,26 @@ describe('SignInButton component', ()=>{
     })
 
     it('renders correctly when user is authenticated', () =>{
-        const useSessionMocked = jest.mocked(useSession)
-        useSessionMocked.mockReturnValueOnce([{
-                                                    user:{
-                                                        name: 'John Doe', 
-                                                        email: 'john.doe@example.com'
-                                                    }, 
-                                                    expire : 'fake-expires'
-                                                },
-                                                false
-                                            ])
+        
+        const useSessionMocked = mocked(useSession)
+        
+        useSessionMocked.mockReturnValueOnce([
+            {
+              data: {
+                user: { 
+                    name: "John Doe", 
+                    email: "john.doe@example.com" 
+                },
+                expires: "fake-expires",
+              },
+            } as any,
+            false
+        ]
+        );
 
         render(<SignInButton/>)
        
-       expect(screen.getByText('John Doe')).toBeInTheDocument()
+       expect(screen.getByText("John Doe")).toBeInTheDocument()
 
    })
 
