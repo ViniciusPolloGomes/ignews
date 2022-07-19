@@ -2,7 +2,6 @@ import { render,screen} from '@testing-library/react'
 import { debug } from 'console'
 import {Header} from '.'
 
-
 jest.mock('next/router' , ()=>{
     return {
         useRouter(){
@@ -12,7 +11,6 @@ jest.mock('next/router' , ()=>{
         }
     }
 })
-
 jest.mock('next-auth/client' , ()=>{
     return {
         useSession(){
@@ -20,17 +18,12 @@ jest.mock('next-auth/client' , ()=>{
         }
     }
 })
-
-
 describe('Header component', ()=>{ 
-    
     it('renders correctly', () =>{
          render(
             <Header/>
         )
-        
         expect(screen.getByText('Home')).toBeInTheDocument()
         expect(screen.getByText('Posts')).toBeInTheDocument()
     })
-
 })
