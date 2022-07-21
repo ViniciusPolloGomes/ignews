@@ -80,7 +80,6 @@ rootDir significa a pasta root do projeto ... pasta rais
 ```
 
 babel.config.js
-
 ```js
 module.exports ={
     presets:  ['next/babel']
