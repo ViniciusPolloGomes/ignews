@@ -1,5 +1,4 @@
 import { render,screen} from '@testing-library/react'
-import { debug } from 'console'
 import {Header} from '.'
 
 jest.mock('next/router' , ()=>{

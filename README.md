@@ -35,6 +35,153 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+### Documentation Tests
+
+#### Introduction 
+- Tests Frontend
+
+##### Config Testing Library
+
+Instal packages:
+```
+yarn add jest -D
+yarn add jest-dom @testing-library/jest-dom @testing-library/dom @testing-library/react babel-jest -D
+yarn add jest-environment-jsdom -D 
+yarn add identity-obj-proxy -D
+yarn add --dev jest typescript 
+yarn add jest-mock -D
+```
+Create Documents:
+
+jest.config.js
+
+```js
+module.exports = {
+    testPathIgnorePatterns:["/node_modules/", "/.next/"], //Qual pastas eu quero ignorar no test
+    setupFilesAfterEnv:[                            //                                     
+        "<rootDir>/src/tests/setupTests.ts"          
+    ],
+    moduleNameMapper:{
+        '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy'
+    },
+    transform:{                                      //parecido com Loaders no webpack, é necessario transformar os arquivos antes de executar codigo, converter com babel para que jest consiga entender esses arquivos.                                        
+        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }]
+    },
+    testEnvironment :'jsdom'
+}
+
+/*
+Expressão regular
+^   indica inicio do arquivo
+.   qualquer caracter
++   significa um ou mais caracteres
+\\ escapando para mudar sentido do outro ponto para sentido de ponto comum
+.(as extensões do arquivo separadas por |  )
+rootDir significa a pasta root do projeto ... pasta rais
+*/
+```
+
+babel.config.js
+
+```js
+module.exports ={
+    presets:  ['next/babel']
+}
+```
+
+Create Repository src/tests/setupTest.ts
+```js
+import '@testing-library/jest-dom/extend-expect'
+// trás funcionalidade a mais para lidar com a arvore de elementos .
+```
+
+Create First test component src/components/Header.spec.tsx
+```js
+import { render,screen} from '@testing-library/react'
+import {Header} from '.'
+
+jest.mock('next/router' , ()=>{
+    return {
+        useRouter(){
+            return{
+                asPath:'/'
+            }
+        }
+    }
+})
+jest.mock('next-auth/client' , ()=>{
+    return {
+        useSession(){
+            return [null,false]
+        }
+    }
+})
+describe('Header component', ()=>{ 
+    it('renders correctly', () =>{
+         render(
+            <Header/>
+        )
+        expect(screen.getByText('Home')).toBeInTheDocument()
+        expect(screen.getByText('Posts')).toBeInTheDocument()
+    })
+})
+
+``` 
+
+Create First test document src/tests/pages/Home.spec.tsx
+```js
+import {render, screen} from '@testing-library/react'
+import Home , { getStaticProps } from '../../pages'
+import {stripe} from '../../services/stripe'
+import {mocked} from 'jest-mock'
+
+jest.mock('next/router')
+jest.mock('next-auth/client',()=>{
+    return{
+        useSession:()=>[null,false]
+    }
+})
+jest.mock('../../services/stripe.ts')
+
+describe('Home page', ()=>{
+    it('renders correctly' , ()=>{
+        render(
+            <Home product={{ priceId: 'fake-price-id', amount : "R$10,00" }}/>)
+
+            expect(screen.getByText("for R$10,00 month")).toBeInTheDocument()    
+    });
+
+    it('loads initial data', async ()=>{
+        const retrieveStripePricesMocked = mocked(stripe.prices.retrieve)
+
+        retrieveStripePricesMocked.mockResolvedValueOnce({
+           id:'fake-price-id' ,
+           unit_amount : 1000 , 
+        } as any )
+
+        const response = await getStaticProps({})
+
+        console.log(response)
+
+        expect(response).toEqual(
+            expect.objectContaining({
+                props: {
+                    product:{
+                        priceId: 'fake-price-id',
+                        amount : '$10.00'
+                    }
+                }
+            })
+        )
+    });
+})
+``` 
+
+Start Test 
+```
+yarn jest 
+```
+
 ### Commands
 ```
 yarn create next-app --typescript
@@ -50,6 +197,5 @@ yarn add identity-obj-proxy -D
 yarn add --dev jest typescript 
 
 yarn add jest-mock -D
-
 ```
 
