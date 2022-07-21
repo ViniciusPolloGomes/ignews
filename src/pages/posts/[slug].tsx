@@ -10,7 +10,7 @@ interface PostProps{
         slug: string;
         title: string;
         content: string;
-        updated: string; 
+        updatedAt: string; 
     }
 }
 
@@ -24,7 +24,7 @@ export default function Post({post} : PostProps ){
             <main className={styles.container}>
                 <article className={styles.post}>
                     <h1>{post.title}</h1>
-                    <time>{post.updated}</time>
+                    <time>{post.updatedAt}</time>
                     <div 
                         className={styles.postContent}
                         dangerouslySetInnerHTML={{__html: post.content}}
@@ -38,6 +38,15 @@ export default function Post({post} : PostProps ){
 export const getServerSideProps: GetServerSideProps = async ({req, params}) =>{
     const session = await getSession({req})
     const {slug} = params;
+
+    if(!session?.activeSubscription){    
+        return{
+            redirect:{
+               destination:`/`,
+               permanent: false,
+            }
+        }
+    }
    
     const prismic = getPrismicClient(req)
 
