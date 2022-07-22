@@ -9,7 +9,13 @@ module.exports = {
     transform:{                                      //parecido com Loaders no webpack, é necessario transformar os arquivos antes de executar codigo, converter com babel para que jest consiga entender esses arquivos.                                        
         '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }]
     },
-    testEnvironment :'jsdom'
+    testEnvironment :'jsdom',
+    collectCoverage: true,
+    collectCoverageFrom:[
+        "src/**/*.tsx",
+        "!src/**/*.spec.tsx"
+    ],
+     coverageReporters: ["lcov","json"]
 }
 
 

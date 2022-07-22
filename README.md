@@ -196,5 +196,7 @@ yarn add identity-obj-proxy -D
 yarn add --dev jest typescript 
 
 yarn add jest-mock -D
+
+ yarn jest --coverage
 ```
 
