@@ -27,7 +27,7 @@ export default function Home({ product }: HomeProps) {
           </p>
           <SubscribeButton/>
         </section>
-        <img src="images/avatar.svg" alt="Girl Coding" />
+        <img src="/images/avatar.svg" alt="Girl Coding" />
       </main>
     </>
   )
